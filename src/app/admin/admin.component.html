@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    h1 {
+      margin-bottom: 20px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 8px 16px;
+      margin-bottom: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+      border-width: 0;
+    }
+    
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+    <table>
+        <td>
+    
+
+    <!-----------------Header-------------------->
+    <div>
+        <img src="http://127.0.0.1:8080/download.png" style="height: 150px; width: 150px; margin-left: 30px; border-radius: 50%;">
+    </div>
+    <!----------------End header----------------->
+
+</td>
+<td style="vertical-align: middle">
+
+  <!--------------Map vs table mode------------>
+
+  <button id="button1" class="mode-button" (click)="toggleMode(1, 'map')">Map</button>
+  <button id="button2" class="mode-button" (click)="toggleMode(2, 'table')">Table</button>
+
+  <!-------------End Map vs table mode--------->
+
+</td>
+<td style="vertical-align: top">
+
+  <!------------------- Menu------------------->
+
+  <button class="menu-button-active" *ngIf="menu_active==true" (click)="toggle_menu()">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+</button>
+
+<div class="menu" *ngIf="menu_active==true">
+    <br>
+    <h2 style="text-align: center;">Hello {{loged_in_user.name_and_surname}}!</h2>
+    <br>
+    <h5 style="text-align: center;"><a routerLink="/Profile">Profile</a></h5>
+    <hr>
+    <h5 style="text-align: center;"><a (click)="logout()" routerLink="/Login">Log out</a></h5>
+</div>
+
+
+<button class="menu-button" *ngIf="menu_active==false" (click)="toggle_menu()">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+</button>
+  
+</td>
+</table>
+<!------------------End Menu------------------>
+
+  <br>
+  
+<div *ngIf="current_mode=='table'">
+  <h2>Users</h2>
+  <a href='/NewAdmin' class="button">New admin</a>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Role</th>
+      <th>Balance</th>
+      <th>No. of rides</th>
+      <th>Total time</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let user of all_users">
+      <td>{{user.name_and_surname}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.role}}</td>
+      <td>{{user.balance}}$</td>
+      <td>{{user.number_of_rides}}</td>
+      <td>{{user.total_time}} min</td>
+      <td>
+        <button class="button" (click)="delete_user(user)">Delete</button>
+      </td>
+    </tr>
+    <mat-progress-spinner *ngIf="loading_users==true" mode="indeterminate" style="margin-left: 700px;"></mat-progress-spinner>
+  </table>
+  
+  <br>
+
+  <h2>Scooters</h2>
+  <button class="button" (click)="insertScooter()">New scooter</button>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Battery</th>
+      <th>No. of rides</th>
+      <th>Total time</th>
+      <th>Reserved</th>
+      <th>Driving</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let scooter of all_scooters">
+      <td>{{scooter.id}}</td>
+      <td>{{scooter.battery_level}}%</td>
+      <td>{{scooter.number_of_rides}}</td>
+      <td>{{scooter.total_time}} min</td>
+      <td *ngIf="scooter.reserved==true">yes</td>
+      <td *ngIf="scooter.reserved==false">no</td>
+      <td *ngIf="scooter.inUse==true">yes</td>
+      <td *ngIf="scooter.inUse==false">no</td>
+      <td>
+        <button class="button" (click)="delete_scooter(scooter)">Delete</button>
+      </td>
+    </tr>
+    <mat-progress-spinner *ngIf="loading_scooters==true" mode="indeterminate" style="margin-left: 700px;"></mat-progress-spinner>
+  </table>
+
+  <br>
+  
+  <h2>Rides</h2>
+  <table>
+    <tr>
+      <th>Scooter</th>
+      <th>User</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Duration</th>
+      <th>Price</th>
+    </tr>
+    <tr *ngFor='let ride of all_rides'>
+      <td>{{ride.scooter_id}}</td>
+      <td>{{ride.user_id}}</td>
+      <td>{{ride.start_time}}</td>
+      <td>{{ride.end_time}}</td>
+      <td>{{ride.duration}} min</td>
+      <td>{{ride.price}}$</td>
+    </tr>
+    <mat-progress-spinner *ngIf="loading_rides==true" mode="indeterminate" style="margin-left: 700px;"></mat-progress-spinner>
+  </table>
+
+</div>
+</body>
+</html>
+

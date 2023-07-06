@@ -1,0 +1,68 @@
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Link to Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+    <!-----------------Header-------------------->
+    <br>
+    <div class="logo">
+        <img src="http://127.0.0.1:8080/download.png" style="height: 200px; width: 150; padding-left: 50px;">
+    </div>
+    <!----------------End header----------------->
+
+
+
+    
+     <!----------------Labels-------------------->
+     
+     <form class="form-1">
+        <div class="label1" style="text-align: center; display: table-cell; vertical-align: middle;">
+            Email
+        </div>
+
+        <br>
+    
+        <div class="label2" style="text-align: center; display: table-cell; vertical-align: middle;">
+            Password
+        </div>
+    </form>
+    <!----------------End labels----------->
+
+
+    <!----------------Log in form -------------->
+    
+    <form class="form-2" style="background-color: #D3D3D3;" >
+        <br>
+        <h2 style="text-align: center;" *ngIf="this.message==''">Log in</h2>
+        <p style="text-align: center; color: #a33535;" *ngIf="this.message!=''">{{message}}</p>
+        <br>
+        <br>
+        <input type="text" placeholder="Enter your email" name="username" [(ngModel)]='username' (ngModelChange)="clearMessage()">
+        <br>
+        <input type="password" placeholder="Enter your password" name="password" [(ngModel)]='password' (ngModelChange)="clearMessage()">
+        <br>
+        <br>
+        <button (click)="login()" *ngIf="isLoading==false">Log in</button>
+        <br>
+        <br>
+        <hr *ngIf="isLoading==false">
+        <h5 style="text-align: center;"><a routerLink="/Register" *ngIf="isLoading==false">Don't have account?</a></h5>
+        <hr *ngIf="isLoading==false">
+        <h5 style="text-align: center;"><a routerLink="/ForgottenPassword" *ngIf="isLoading==false">Forgot your password?</a></h5>
+        <mat-progress-spinner *ngIf="isLoading==true" mode="indeterminate" style="margin-left: 100px;" ></mat-progress-spinner>
+    </form>
+
+    
+    <!----------------Log in form end----------->
+
+
+   
+    
+</body>
+
