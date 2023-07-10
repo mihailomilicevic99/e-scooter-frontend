@@ -5,6 +5,7 @@ import { UserServiceService } from 'src/user-service.service';
 import {  Router } from '@angular/router';
 import { Ride } from '../models/Ride';
 import { Scooter } from '../models/Scooter';
+import { NDEFMessage, NdefRecord } from '@taptrack/ndef';
 
 declare global {
   interface Window {
@@ -615,12 +616,30 @@ updateScootersLocation(){
   }
 
 
+  async writeTag() {
+    if ("NDEFReader" in window) {
+      const ndef = new NDEFReader();
+      try {
+        await ndef.write("What Web Can Do Today");
+        console.log("NDEF message written!");
+      } catch(error) {
+        console.log(error);
+      }
+    } else {
+      console.log("Web NFC is not supported.");
+    }
+  }
+  
+  
+  
+
+
   start_ride(){
     if(this.loged_in_user.balance<=0){
       alert("You don't have enough funds on your account. Please settle your dues");
       return;
     }
-    let id = 1;
+    let id = 1; //change this hard coded value with real scooter id
     //TO DO: NFC unlocking
 
     //Check if choosen scooter is reserved
