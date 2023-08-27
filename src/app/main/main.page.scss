@@ -1,0 +1,250 @@
+
+.map{
+    height: 500px;
+     width: 800px; 
+     margin-left: 350px; 
+     margin-top: 0px;
+     border-radius: 5%;
+}
+
+
+
+
+        
+.menu{
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 220px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 170px;
+    margin-left: 30px;
+    margin-bottom: 50px;
+    border-radius: 10%;
+  }
+
+
+  a{
+    color: black;
+  }
+
+  a:hover{
+    color: black;
+  }
+
+  body{
+    background-color: rgb(247, 241, 241);
+    height: 710px;
+  }
+
+
+  .menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    cursor: pointer;
+    margin-left: 65px;
+    margin-top: 35px;
+  }
+
+
+  
+  /*.start-ride-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #aea7a7;
+    cursor: pointer;
+    margin-left: 65px;
+    margin-top: 35px;
+  }*/
+
+
+  .start-ride-button{
+    margin-top: 40px;
+    margin-left: 650px;
+    width: 260px;
+    height: 50px;
+    border-radius: 15%;
+    background-color: rgb(40, 213, 156);
+    color: #ffffff;
+    font-size: large;
+  }
+
+
+  .start-ride-button-disabled{
+    margin-top: 40px;
+    margin-left: 650px;
+    width: 260px;
+    height: 50px;
+    border-radius: 15%;
+    background-color: rgb(142, 216, 192);
+    color: #ffffff;
+    font-size: large;
+  }
+
+
+  /*.menu-button-active {
+    margin-top: 40px;
+    margin-left: 650px;
+    width: 260px;
+    height: 50px;
+    border-radius: 15%;
+    background-color: rgb(40, 213, 156);
+    color: #ffffff;
+    font-size: large;
+  }*/
+
+
+  .menu-button-active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #aea7a7;
+    cursor: pointer;
+    margin-left: 65px;
+    margin-top: 35px;
+  }
+
+
+ 
+  .timer{
+    margin-top: -40px;
+    margin-left: 550px;
+    font-size: large;
+    font-weight: bold;
+  }
+
+  
+    
+  
+  
+  .line {
+    width: 80%;
+    height: 5px;
+    background-color: #636060;
+    margin-bottom: 3px;
+    margin-top: 3px;
+  }
+  
+
+
+  //----------------------------------------------------------------------------------------------------------------------------------------
+  //----------------------------------- MOBILE VERSION -----------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+  .menu-button-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+ 
+
+  .menu-button-active-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #aea7a7;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+
+  .line-mobile {
+    width: 70%;
+    height: 3px;
+    background-color: #636060;
+    margin-bottom: 3px;
+    margin-top: 3px;
+  }
+
+  .map-mobile{
+    height: 420px;
+    width: 340px; 
+    margin-left: 10px; 
+    margin-top: 10px;
+    border-radius: 5%;
+}
+
+
+.start-ride-button-mobile{
+  margin-top: 20px;
+  margin-left: 120px;
+  width: 200px;
+  height: 40px;
+  border-radius: 15%;
+  background-color: rgb(40, 213, 156);
+  color: #ffffff;
+  font-size: large;
+}
+
+
+.start-ride-button-mobile-disabled{
+  margin-top: 20px;
+  margin-left: 100px;
+  width: 200px;
+  height: 40px;
+  border-radius: 15%;
+  background-color: rgb(142, 216, 192);
+  color: #ffffff;
+  font-size: large;
+}
+
+
+.timer-mobile{
+  margin-top: -30px;
+  margin-left: 30px;
+  font-size: large;
+  font-weight: bold;
+}
+
+
+.menu-mobile{
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 150px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 90px;
+  margin-left: 15px;
+  border-radius: 10%;
+  border: 2px solid black;
+}
+  
+  
+
+
+
+
+
+
+  

@@ -1,0 +1,220 @@
+
+
+
+
+<!-- index.html -->
+<!doctype html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Link to Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+
+<div *ngIf="this.is_mobile_device==false">
+
+
+    <!-----------------Header--------------------
+    <br>
+    <div>
+        <img src="http://127.0.0.1:8080/download.png" style="height: 150px; width: 150px; margin-left: 30px; border-radius: 50%;">
+    </div>
+    ----------------End header----------------->
+
+
+
+    <!------------------- Menu------------------->
+
+    <button class="menu-button-active" *ngIf="menu_active==true" (click)="toggle_menu()">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+    </button>
+
+    <div class="menu" *ngIf="menu_active==true">
+        <br>
+        <h3 style="text-align: center;">Hello {{loged_in_user.name_and_surname}}!</h3>
+        <br>
+        <br>
+        <h5 style="text-align: center;"><a routerLink="/Profile">Profile</a></h5>
+        <hr>
+        <h5 style="text-align: center;"><a routerLink="/Ride-history">Ride history</a></h5>
+        <hr>
+        <h5 style="text-align: center;"><a routerLink="/Faq">FAQ</a></h5>
+        <hr>
+        <br>
+        <h5 style="text-align: center;"><a (click)="logout()" routerLink="/Login">Log out</a></h5>
+    </div>
+
+    
+    <button class="menu-button" *ngIf="menu_active==false" (click)="toggle_menu()">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+    </button>
+          
+
+    <!------------------End Menu------------------>
+
+
+
+    <div style="margin-top: -45px; margin-left: 200px; font-weight: bold;">Balance: {{current_balance}}$</div>
+
+
+
+    <!--------------------Map---------------------->
+
+    <div id="map"  class="map"></div>
+
+    <!--------------------End map----------------------->
+
+
+    <!-------------------Ride button--------------------->
+
+    <button id="start-ride-button" class="start-ride-button" (click)="start_ride()" *ngIf="loged_in_user.isDriving==false && waiting_for_nfc_target==false">
+        Start ride
+    </button>
+
+    <ion-spinner *ngIf="waiting_for_nfc_target==true" style="margin-left: 100px;" name="crescent"></ion-spinner>
+
+
+
+    <button class="start-ride-button" (click)="end_ride()" *ngIf="loged_in_user.isDriving==true && in_black_zone==false">
+        End ride
+    </button>
+
+    <button class="start-ride-button-disabled" (click)="end_ride()" *ngIf="loged_in_user.isDriving==true && in_black_zone==true" disabled>
+        End ride
+    </button>
+
+    <div id="warning"></div>
+
+
+    <!----------  -----End ride button--------------------->
+
+
+
+    <!----------------------Timer-------------------------->
+
+    <div *ngIf='loged_in_user.isDriving==true' class="timer">
+        {{driving_time.hours}}:{{driving_time.minutes}}:{{driving_time.seconds}}
+    </div>
+
+    <!----------------------End timer----------------------->
+
+
+</div>
+
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<div *ngIf="this.is_mobile_device==true">
+
+<!------------------- Menu------------------->
+
+<button class="menu-button-active-mobile" *ngIf="menu_active==true" (click)="toggle_menu()">
+    <span class="line-mobile"></span>
+    <span class="line-mobile"></span>
+    <span class="line-mobile"></span>
+</button>
+
+<div class="menu-mobile" *ngIf="menu_active==true">
+    <br>
+    <h3 style="text-align: center;">Hello {{loged_in_user.name_and_surname}}!</h3>
+    <br>
+    <br>
+    <h5 style="text-align: center;"><a routerLink="/Profile">Profile</a></h5>
+    <hr>
+    <h5 style="text-align: center;"><a routerLink="/Ride-history">Ride history</a></h5>
+    <hr>
+    <h5 style="text-align: center;"><a routerLink="/Faq">FAQ</a></h5>
+    <hr>
+    <br>
+    <h5 style="text-align: center;"><a (click)="logout()" routerLink="/Login">Log out</a></h5>
+</div>
+
+
+<button class="menu-button-mobile" *ngIf="menu_active==false" (click)="toggle_menu()">
+    <span class="line-mobile"></span>
+    <span class="line-mobile"></span>
+    <span class="line-mobile"></span>
+</button>
+      
+
+<!------------------End Menu------------------>
+
+
+<div style="margin-top: -35px; margin-left: 250px; font-weight: bold;">Balance: {{current_balance}}$</div>
+
+
+
+<!--------------------Map---------------------->
+
+<div id="map" style="margin-top: 20px;" class="map-mobile"></div>
+
+<!--------------------End map----------------------->
+
+
+<!-------------------Ride button--------------------->
+
+<button id="start-ride-button" class="start-ride-button-mobile" (click)="start_ride()" *ngIf="loged_in_user.isDriving==false && waiting_for_nfc_target==false">
+    Start ride
+</button>
+
+<ion-spinner *ngIf="waiting_for_nfc_target==true" style="margin-left: 200px; margin-top: 40px;" name="crescent"></ion-spinner>
+
+
+
+<button class="start-ride-button-mobile" (click)="end_ride()" *ngIf="loged_in_user.isDriving==true && in_black_zone==false">
+    End ride
+</button>
+
+<button class="start-ride-button-mobile-disabled" (click)="end_ride()" *ngIf="loged_in_user.isDriving==true && in_black_zone==true" disabled>
+    End ride
+</button>
+
+
+<div id="warning"></div>
+
+
+<!----------  -----End ride button--------------------->
+
+
+
+<!----------------------Timer-------------------------->
+
+<div *ngIf='loged_in_user.isDriving==true' class="timer-mobile">
+    {{driving_time.hours}}:{{driving_time.minutes}}:{{driving_time.seconds}}
+</div>
+
+<!----------------------End timer----------------------->
+
+
+</div>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+
+
+</body>
+

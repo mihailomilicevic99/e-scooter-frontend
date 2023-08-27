@@ -1,31 +1,63 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './main/main.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
-import { AdminComponent } from './admin/admin.component';
-import { ProfileComponent } from './profile/profile.component';
-import { FaqComponent } from './faq/faq.component';
-import { RideHistoryComponent } from './ride-history/ride-history.component';
-import { NewAdminComponent } from './new-admin/new-admin.component';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth-guard';
 
 const routes: Routes = [
-  {path: '' , component: LoginComponent},
-  {path: 'Login' , component: LoginComponent},
-  {path: 'Register', component: RegisterComponent},
-  {path: 'ForgottenPassword', component: ForgottenPasswordComponent},
-  {path: 'AdminPanel', component: AdminComponent, canActivate: [AuthGuard]},
-  {path: 'Main', component: MainComponent, canActivate: [AuthGuard]},
-  {path: 'Profile', component: ProfileComponent},
-  {path: 'Faq', component: FaqComponent},
-  {path: 'Ride-history', component: RideHistoryComponent, canActivate: [AuthGuard]},
-  {path: 'NewAdmin', component: NewAdminComponent, canActivate: [AuthGuard]}
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'Login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'Login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'Main',
+    loadChildren: () => import('./main/main.module').then( m => m.MainPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'Register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'Faq',
+    loadChildren: () => import('./faq/faq.module').then( m => m.FaqPageModule)
+  },
+  {
+    path: 'Admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'ForgottenPassword',
+    loadChildren: () => import('./forgotten-password/forgotten-password.module').then( m => m.ForgottenPasswordPageModule)
+  },
+  {
+    path: 'New-admin',
+    loadChildren: () => import('./new-admin/new-admin.module').then( m => m.NewAdminPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'Profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'Ride-history',
+    loadChildren: () => import('./ride-history/ride-history.module').then( m => m.RideHistoryPageModule),
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

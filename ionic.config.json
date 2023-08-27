@@ -1,0 +1,10 @@
+{
+  "name": "e-scooter",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}

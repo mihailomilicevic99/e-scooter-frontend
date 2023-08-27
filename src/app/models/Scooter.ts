@@ -10,4 +10,5 @@ export interface Scooter{
     reservation_username: string;
     reservation_time:any;
     driver_username: any;
+    token: string;
 }

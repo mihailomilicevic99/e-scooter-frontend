@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { UserServiceService } from '../user-service.service';
+import { UserServiceService } from './user-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,10 @@ export class AuthGuard implements CanActivate {
             Authorization: `Bearer ${jwt}`
           });
           
-        const response = await this.http.get<{ role: string }>('http://localhost:3000/api/users/jwt/jwt/jwt', {headers}).toPromise();
+        const response = await this.http.get<{ role: string }>('https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/users/jwt/jwt/jwt', {headers}).toPromise();
         if(response && response.role=='admin'){
           
-            if(route.routeConfig?.path == 'AdminPanel' || route.routeConfig?.path == 'NewAdmin'){
+            if(route.routeConfig?.path == 'Admin' || route.routeConfig?.path == 'New-admin'){
               return true;
             }
             else{
@@ -40,6 +40,7 @@ export class AuthGuard implements CanActivate {
             }
           }
           else{
+            alert("here")
             this.router.navigate(['/Login']);
             return false;
           }

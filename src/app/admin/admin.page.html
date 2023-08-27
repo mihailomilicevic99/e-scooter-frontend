@@ -1,0 +1,456 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    
+  </ion-header>
+
+
+
+
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+
+<div *ngIf="this.is_mobile_device==false">
+
+    <table>
+        <td>
+    
+
+    <!-----------------Header-------------------->
+    <div>
+        <img [src]="'https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/images/1'" style="height: 150px; width: 150px; margin-left: 30px; border-radius: 50%;">
+    </div>
+    <!----------------End header----------------->
+
+</td>
+<td style="vertical-align: middle">
+
+  <!--------------Map vs table mode------------>
+
+  <button id="button1" class="mode-button" (click)="toggleMode(1, 'map')">Map</button>
+  <button id="button2" class="mode-button" (click)="toggleMode(2, 'table')">Table</button>
+
+  <!-------------End Map vs table mode--------->
+
+</td>
+<td style="vertical-align: top">
+
+  <!------------------- Menu------------------->
+
+  <button class="menu-button-active" *ngIf="menu_active==true" (click)="toggle_menu()">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+</button>
+
+<div class="menu" *ngIf="menu_active==true">
+    <br>
+    <h2 style="text-align: center;">Hello {{loged_in_user.name_and_surname}}!</h2>
+    <br>
+    <h5 style="text-align: center;"><a routerLink="/Profile">Profile</a></h5>
+    <hr>
+    <h5 style="text-align: center;"><a (click)="logout()" routerLink="/Login">Log out</a></h5>
+</div>
+
+
+<button class="menu-button" *ngIf="menu_active==false" (click)="toggle_menu()">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+</button>
+  
+</td>
+</table>
+<!------------------End Menu------------------>
+
+  <br>
+  
+
+<!------------------------------------------------Table mode --------------------------------------------------->
+<div *ngIf="current_mode=='table'">
+  <h2>Users</h2>
+  <a href='/New-admin' class="button">New admin</a>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Role</th>
+      <th>Balance</th>
+      <th>No. of rides</th>
+      <th>Total time</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let user of all_users">
+      <td>{{user.name_and_surname}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.role}}</td>
+      <td>{{user.balance}}$</td>
+      <td>{{user.number_of_rides}}</td>
+      <td>{{user.total_time}} min</td>
+      <td>
+        <button class="button" (click)="delete_user(user)">Delete</button>
+      </td>
+    </tr>
+    <ion-spinner *ngIf="loading_users==true" style="margin-left: 700px;" name="crescent"></ion-spinner>
+  </table>
+  
+  <br>
+
+  <h2>Scooters</h2>
+  <button class="button" (click)="insertScooter()">New scooter</button>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Battery</th>
+      <th>No. of rides</th>
+      <th>Total time</th>
+      <th>Reserved</th>
+      <th>Driving</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let scooter of all_scooters">
+      <td>{{scooter.id}}</td>
+      <td>{{scooter.battery_level}}%</td>
+      <td>{{scooter.number_of_rides}}</td>
+      <td>{{scooter.total_time}} min</td>
+      <td *ngIf="scooter.reserved==true">yes</td>
+      <td *ngIf="scooter.reserved==false">no</td>
+      <td *ngIf="scooter.inUse==true">yes</td>
+      <td *ngIf="scooter.inUse==false">no</td>
+      <td>
+        <button class="button" (click)="delete_scooter(scooter)">Delete</button>
+      </td>
+    </tr>
+    <ion-spinner *ngIf="loading_scooters==true" style="margin-left: 700px;" name="crescent"></ion-spinner>
+  </table>
+
+  <br>
+  
+  <h2>Rides</h2>
+  <table>
+    <tr>
+      <th>Scooter</th>
+      <th>User</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Duration</th>
+      <th>Price</th>
+    </tr>
+    <tr *ngFor='let ride of all_rides'>
+      <td>{{ride.scooter_id}}</td>
+      <td>{{ride.user_id}}</td>
+      <td>{{ride.start_time}}</td>
+      <td>{{ride.end_time}}</td>
+      <td>{{ride.duration}} min</td>
+      <td>{{ride.price}}$</td>
+    </tr>
+    <ion-spinner *ngIf="loading_rides==true" style="margin-left: 700px;" name="crescent"></ion-spinner>
+  </table>
+
+
+</div>
+<!----------------------------------------------------End table mode---------------------------------------------------->
+
+
+
+<!-----------------------------------------------------Map mode---------------------------------------------------------->
+<div *ngIf="current_mode=='map'">
+
+<!--------------------Map---------------------->
+<div class="row">
+    <div id="map" class="map"></div>
+<!--------------------End map----------------------->
+
+
+<!------------------------Filters------------------------------>
+<form class="filters-form" style="margin-left: 130px;">
+  <h2 style="margin-left: 50px;">FILTERS</h2>
+  <br>
+  <br>
+  <label for="batteryRange">Percentage of Battery:</label>
+  <br>
+  <input type="number" id="batteryRangeFrom" name="batteryRangeFrom" min="0" max="100" step="1" [(ngModel)]='battery_from'>
+  <span> - </span>
+  <input type="number" id="batteryRangeTo" name="batteryRangeTo" min="0" max="100" step="1" [(ngModel)]='battery_to'> %
+  
+  <br>
+  <br>
+  
+  <label for="hoursDrivenRange">Hours Driven:</label>
+  <br>
+  <input type="number" id="hoursDrivenFrom" name="hoursDrivenFrom" min="0" max="10000" step="1" [(ngModel)]='hours_from'>
+  <span> - </span>
+  <input type="number" id="hoursDrivenTO" name="hoursDrivenTo" min="0" max="10000" step="1" [(ngModel)]='hours_to'> h
+  
+  <br>
+  <br>
+
+  <label for="numRidesRange">Number of Rides:</label>
+  <br>
+  <input type="number" id="ridesFrom" name="ridesFrom" min="0" max="10000" step="1" [(ngModel)]='rides_from'>
+  <span> - </span>
+  <input type="number" id="ridesTo" name="ridesTo" min="0" max="10000" step="1" [(ngModel)]='rides_to'>
+
+  <br>
+  <br>
+  
+  <label>Categories of Scooters:</label>
+  <br><br>
+  <input type="checkbox" id="free" name="category" value="free"  [(ngModel)]='show_free_scooters'>
+  <label for="free">Free</label><br>
+  
+  <input type="checkbox" id="reserved" name="category" value="reserved"  [(ngModel)]='show_reserved_scooters'>
+  <label for="reserved">Reserved</label><br>
+  
+  <input type="checkbox" id="driving" name="category" value="driving"  [(ngModel)]='show_driving_scooters'>
+  <label for="driving">Driving</label><br><br>
+  
+  <button class="button" (click)="apply_filters()">Apply Filters</button>
+</form>
+</div>
+<!--------------------End Filters------------------------------>
+
+</div>
+<!---------------------------------------------------- End map  mode------------------------------------------------------------>
+
+
+</div>
+
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<div *ngIf="this.is_mobile_device==true">
+
+  <table>
+    <td>
+
+
+<!-----------------Header-------------------->
+<div>
+    <img [src]="'https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/images/1'" style="height: 100px; width: 100px; margin-left: 10px; border-radius: 50%;">
+</div>
+<!----------------End header----------------->
+
+</td>
+<td style="vertical-align: middle">
+
+<!--------------Map vs table mode------------>
+
+<button id="button1" class="mode-button-mobile" (click)="toggleMode(1, 'map')">Map</button>
+<button id="button2" class="mode-button-mobile" (click)="toggleMode(2, 'table')">Table</button>
+
+<!-------------End Map vs table mode--------->
+
+</td>
+<td style="vertical-align: top">
+
+<!------------------- Menu------------------->
+
+<button class="menu-button-active-mobile" *ngIf="menu_active==true" (click)="toggle_menu()">
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"></span>
+</button>
+
+<div class="menu-mobile" *ngIf="menu_active==true">
+<h2 style="text-align: center;">Hello {{loged_in_user.name_and_surname}}!</h2>
+<br>
+<h5 style="text-align: center;"><a routerLink="/Profile">Profile</a></h5>
+<hr>
+<h5 style="text-align: center;"><a (click)="logout()" routerLink="/Login">Log out</a></h5>
+</div>
+
+
+<button class="menu-button-mobile" *ngIf="menu_active==false" (click)="toggle_menu()">
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"></span>
+</button>
+
+</td>
+</table>
+<!------------------End Menu------------------>
+
+<br>
+
+
+<!--------------------------------------Table mode-------------------------------------->
+<div *ngIf="current_mode=='table'">
+<h2>Users</h2>
+<a href='/New-admin' class="button">New admin</a>
+<table>
+<tr>
+  <th>Name</th>
+  <th>Username</th>
+  <th>Role</th>
+  <th>Balance</th>
+  <th>No. of rides</th>
+  <th>Total time</th>
+  <th>Action</th>
+</tr>
+<tr *ngFor="let user of all_users">
+  <td>{{user.name_and_surname}}</td>
+  <td>{{user.username}}</td>
+  <td>{{user.role}}</td>
+  <td>{{user.balance}}$</td>
+  <td>{{user.number_of_rides}}</td>
+  <td>{{user.total_time}} min</td>
+  <td>
+    <button class="button" (click)="delete_user(user)">Delete</button>
+  </td>
+</tr>
+<ion-spinner *ngIf="loading_users==true" style="margin-left: 700px;" name="crescent"></ion-spinner>
+</table>
+
+<br>
+
+<h2>Scooters</h2>
+<button class="button" (click)="insertScooter()">New scooter</button>
+<table>
+<tr>
+  <th>ID</th>
+  <th>Battery</th>
+  <th>No. of rides</th>
+  <th>Total time</th>
+  <th>Reserved</th>
+  <th>Driving</th>
+  <th>Action</th>
+</tr>
+<tr *ngFor="let scooter of all_scooters">
+  <td>{{scooter.id}}</td>
+  <td>{{scooter.battery_level}}%</td>
+  <td>{{scooter.number_of_rides}}</td>
+  <td>{{scooter.total_time}} min</td>
+  <td *ngIf="scooter.reserved==true">yes</td>
+  <td *ngIf="scooter.reserved==false">no</td>
+  <td *ngIf="scooter.inUse==true">yes</td>
+  <td *ngIf="scooter.inUse==false">no</td>
+  <td>
+    <button class="button" (click)="delete_scooter(scooter)">Delete</button>
+  </td>
+</tr>
+<ion-spinner *ngIf="loading_scooters==true" style="margin-left: 700px;" name="crescent"></ion-spinner>
+</table>
+
+<br>
+
+<h2>Rides</h2>
+<table>
+<tr>
+  <th>Scooter</th>
+  <th>User</th>
+  <th>Start time</th>
+  <th>End time</th>
+  <th>Duration</th>
+  <th>Price</th>
+</tr>
+<tr *ngFor='let ride of all_rides'>
+  <td>{{ride.scooter_id}}</td>
+  <td>{{ride.user_id}}</td>
+  <td>{{ride.start_time}}</td>
+  <td>{{ride.end_time}}</td>
+  <td>{{ride.duration}} min</td>
+  <td>{{ride.price}}$</td>
+</tr>
+<ion-spinner *ngIf="loading_rides==true" style="margin-left: 700px;" name="crescent"></ion-spinner>
+</table>
+
+</div>
+
+<!----------------------------------------End table mode ------------------------------------>
+
+
+<!-------------------------------------------Map mode ---------------------------------------->
+
+<div *ngIf="current_mode=='map'">
+
+<!--------------------Map---------------------->
+
+<div id="map"  class="map-mobile"></div>
+
+<!--------------------End map----------------------->
+
+
+<!------------------------Filters------------------------------>
+
+<button class="button" style="margin-top: 30px; margin-left: 140px;" (click)="open_filter_menu()">FILTERS</button>
+
+<form class="filters-form-mobile" *ngIf="filter_form_active==true">
+  <h4 style="margin-left: 140px;">FILTERS</h4>
+ 
+  <label style="margin-left: 100px;" for="batteryRange">Percentage of Battery:</label>
+  <br>
+  <div style="margin-left: 120px;">
+    <input type="number" id="batteryRangeFrom" name="batteryRangeFrom" min="0" max="100" step="1" [(ngModel)]='battery_from'>
+    <span> - </span>
+    <input type="number" id="batteryRangeTo" name="batteryRangeTo" min="0" max="100" step="1" [(ngModel)]='battery_to'> %
+  </div>
+
+  <br>
+  
+  <label style="margin-left: 130px;" for="hoursDrivenRange">Hours Driven:</label>
+  <br>
+  <div style="margin-left: 100px;">
+    <input type="number" id="hoursDrivenFrom" name="hoursDrivenFrom" min="0" max="10000" step="1" [(ngModel)]='hours_from'>
+    <span> - </span>
+    <input type="number" id="hoursDrivenTO" name="hoursDrivenTo" min="0" max="10000" step="1" [(ngModel)]='hours_to'> h
+  </div>
+
+  <br>
+
+  <label style="margin-left: 120px;" for="numRidesRange">Number of Rides:</label>
+  <br>
+  <div style="margin-left: 105px;">
+    <input type="number" id="ridesFrom" name="ridesFrom" min="0" max="10000" step="1" [(ngModel)]='rides_from'>
+    <span> - </span>
+    <input type="number" id="ridesTo" name="ridesTo" min="0" max="10000" step="1" [(ngModel)]='rides_to'>
+  </div>
+
+  <br>
+  
+  <div style="margin-left: 50px;">
+  <input type="checkbox" id="free" name="category" value="free"  [(ngModel)]='show_free_scooters'>
+  <label for="free">Free</label>
+  </div>
+  
+  <div style="margin-left: 130px; margin-top: -19px;">
+  <input type="checkbox" id="reserved" name="category" value="reserved"  [(ngModel)]='show_reserved_scooters'>
+  <label for="reserved">Reserved</label>
+  </div>
+  
+  <div style="margin-left: 250px; margin-top: -20px;">
+  <input type="checkbox" id="driving" name="category" value="driving"  [(ngModel)]='show_driving_scooters'>
+  <label for="driving">Driving</label>
+  </div>
+  
+  <br>
+  
+  <button class="button" style="margin-left: 125px;" (click)="apply_filters()">Apply Filters</button>
+</form>
+<!--------------------End Filters------------------------------>
+
+</div>
+<!---------------------------------------------End map mode --------------------------------->
+
+</div>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+
+
+
+</ion-content>

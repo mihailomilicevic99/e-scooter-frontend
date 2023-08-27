@@ -1,0 +1,122 @@
+
+<head>
+  <title>Ride history</title>
+</head>
+<body>
+
+
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+
+<div *ngIf="this.is_mobile_device==false">
+
+
+    <table>
+        <td>
+            <!-----------------Header-------------------->
+            <div>
+                <img [src]="'https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/images/1'" style="height: 150px; width: 150px; margin-left: 30px; border-radius: 50%;">
+            </div>
+            <!----------------End header----------------->
+
+        </td>
+        <td style="vertical-align: middle;">
+            <h1 style="margin-left: 200px;">Ride history</h1>
+        </td>
+    </table>
+
+
+  
+  <table>
+    <tr>
+      <th>Scooter</th>
+      <th>User</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Duration</th>
+      <th>Price</th>
+    </tr>
+    <tr *ngFor='let ride of all_rides'>
+      <td>{{ride.scooter_id}}</td>
+      <td>{{ride.user_id}}</td>
+      <td>{{ride.start_time}}</td>
+      <td>{{ride.end_time}}</td>
+      <td>{{ride.duration}} min</td>
+      <td>{{ride.price}}$</td>
+    </tr>
+    <tr *ngIf="all_rides.length==0 && loading_rides==false">
+       <p style="margin-left: 700px;">No data available</p>
+    </tr><ion-spinner *ngIf="loading_rides==true" style="margin-left: 700px; margin-top: 30px;" name="crescent"></ion-spinner>
+  </table>
+  <p *ngIf="all_rides.length!=0" style="margin-left: 1340px;">Total:  {{total_price}}$</p>
+
+
+</div>
+
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<div *ngIf="this.is_mobile_device==true">
+
+
+  <table>
+    <td>
+        <!-----------------Header-------------------->
+        <div>
+            <img [src]="'https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/images/1'" style="height: 100px; width: 100px; margin-left: 0px; border-radius: 50%;">
+        </div>
+        <!----------------End header----------------->
+
+    </td>
+    <td style="vertical-align: middle;">
+        <h1 style="margin-left: 20px;">Ride history</h1>
+    </td>
+</table>
+
+
+
+<table>
+<tr>
+  <th class="th-mobile">Scooter</th>
+  <th class="th-mobile">Start time</th>
+  <th class="th-mobile">End time</th>
+  <th class="th-mobile">Duration</th>
+  <th class="th-mobile">Price</th>
+</tr>
+<tr *ngFor='let ride of all_rides'>
+  <td class="td-mobile">{{ride.scooter_id}}</td>
+  <td class="td-mobile">{{ride.start_time}}</td>
+  <td class="td-mobile">{{ride.end_time}}</td>
+  <td class="td-mobile">{{ride.duration}} min</td>
+  <td class="td-mobile">{{ride.price}}$</td>
+</tr>
+<tr *ngIf="all_rides.length==0 && loading_rides==false">
+   <p style="margin-left: 150px;">No data available</p>
+</tr><ion-spinner *ngIf="loading_rides==true" style="margin-left: 160px; margin-top: 30px;" name="crescent"></ion-spinner>
+</table>
+<p *ngIf="all_rides.length!=0" style="margin-left: 580px;">Total:  {{total_price}}$</p>
+
+
+
+</div>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+
+
+</body>

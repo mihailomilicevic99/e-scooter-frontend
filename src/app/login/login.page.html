@@ -1,0 +1,156 @@
+
+
+
+
+
+
+<head>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Link to Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+
+<div *ngIf="this.is_mobile_device==false">
+
+  <!-----------------Header-------------------->
+  <br>
+  <div class="logo">
+      <img [src]="'https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/images/1'" style="height: 200px; width: 150; padding-left: 50px;">
+  </div>
+  <!----------------End header----------------->
+
+
+
+  
+   <!----------------Labels-------------------->
+   
+   <form class="form-1">
+      <div class="label1" style="text-align: center; display: table-cell; vertical-align: middle;">
+          Email
+      </div>
+
+      <br>
+  
+      <div class="label2" style="text-align: center; display: table-cell; vertical-align: middle;">
+          Password
+      </div>
+  </form>
+  <!----------------End labels----------->
+
+
+  <!----------------Log in form -------------->
+  
+  <form class="form-2" style="background-color: #D3D3D3;" >
+      <br>
+      <h2 style="text-align: center;" *ngIf="this.message==''">Log in</h2>
+      <p style="text-align: center; color: #a33535;" *ngIf="this.message!=''">{{message}}</p>
+      <br>
+      <br>
+      <input type="text" placeholder="Enter your email" name="username" [(ngModel)]='username' (ngModelChange)="clearMessage()">
+      <br>
+      <input type="password" placeholder="Enter your password" name="password" [(ngModel)]='password' (ngModelChange)="clearMessage()">
+      <br>
+      <br>
+      <button (click)="login()" *ngIf="isLoading==false">Log in</button>
+      <br>
+      <br>
+      <hr *ngIf="isLoading==false">
+      <h5 style="text-align: center;"><a routerLink="/Register" *ngIf="isLoading==false">Don't have account?</a></h5>
+      <hr *ngIf="isLoading==false">
+      <h5 style="text-align: center;"><a routerLink="/ForgottenPassword" *ngIf="isLoading==false">Forgot your password?</a></h5>
+      <ion-spinner *ngIf="isLoading==true" style="margin-left: 100px;" name="crescent"></ion-spinner>
+  </form>
+
+  
+  <!----------------Log in form end----------->
+
+</div>
+
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<div *ngIf="this.is_mobile_device==true">
+
+    <!-----------------Header-------------------->
+  <br>
+  <div class="logo-mobile">
+      <img [src]="'https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/images/1'" style="height: 200px; width: 150; padding-left: 50px;">
+  </div>
+  <!----------------End header----------------->
+
+
+
+  
+   <!----------------Labels-------------------->
+   
+   <form class="form-1-mobile">
+    <div class="label1-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+        Email
+    </div>
+
+    <br>
+
+    <div class="label2-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+        Password
+    </div>
+</form>
+<!----------------End labels----------->
+
+
+<!----------------Log in form -------------->
+
+<form class="form-2-mobile" style="background-color: #D3D3D3;" >
+    <br>
+    <h2 style="text-align: center;" *ngIf="this.message==''">Log in</h2>
+    <p style="text-align: center; color: #a33535;" *ngIf="this.message!=''">{{message}}</p>
+    <br>
+    <input class="input-mobile" type="text" placeholder="Enter your email" name="username" [(ngModel)]='username' (ngModelChange)="clearMessage()">
+    <br>
+    <input class="input-mobile" type="password" placeholder="Enter your password" name="password" [(ngModel)]='password' (ngModelChange)="clearMessage()">
+    <br>
+    <br>
+    <button class="button-mobile" (click)="login()" *ngIf="isLoading==false">Log in</button>
+    <br>
+    <hr *ngIf="isLoading==false">
+    <h5 style="text-align: center;"><a routerLink="/Register" *ngIf="isLoading==false">Don't have account?</a></h5>
+    <hr *ngIf="isLoading==false">
+    <h5 style="text-align: center;"><a routerLink="/ForgottenPassword" *ngIf="isLoading==false">Forgot your password?</a></h5>
+    <ion-spinner *ngIf="isLoading==true" style="margin-left: 100px;" name="crescent"></ion-spinner>
+</form>
+
+
+<!----------------Log in form end----------->
+
+</div>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+
+
+ 
+  
+</body>
+

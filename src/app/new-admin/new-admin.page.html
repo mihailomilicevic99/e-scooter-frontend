@@ -1,0 +1,176 @@
+<head>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Link to Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+      body {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100vh;
+      }
+    </style>
+</head>
+<body>
+
+
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+
+<div *ngIf="this.is_mobile_device==false">
+
+
+
+
+  <!-----------------Header-------------------->
+  <br>
+  <div class="logo">
+      <img src="http://127.0.0.1:8080/download.png" style="height: 200px; width: 150; padding-left: 50px;">
+  </div>
+  <!----------------End header----------------->
+  
+
+
+  <!----------------Log in form -------------->
+  <form class="form-1" style="background-color: #D3D3D3;" >
+      <br>
+      <h2 style="text-align: center;" *ngIf="this.message==''">Assign new admin</h2>
+      <p style="text-align: center; color: #a33535;" *ngIf="this.message!=''">{{message}}</p>
+      <br>
+      <br>
+      <input type="text" placeholder="Enter the name" name="name" [(ngModel)]='newAdmin.name_and_surname' (ngModelChange)="clearMessage()">
+      <br>
+      <input type="text" placeholder="Enter the username" name="username" [(ngModel)]='newAdmin.username' (ngModelChange)="clearMessage()">
+      <br>
+      <input type="password" placeholder="Enter the password" name="password" [(ngModel)]='newAdmin.password' (ngModelChange)="clearMessage()">
+      <br>
+      <input type="password" placeholder="Repeat the password" name="repeat_password" [(ngModel)]='repeat_password' (ngModelChange)="clearMessage()">
+      <br>
+      <br>
+      <button (click)="save()" *ngIf="isLoading==false">Save</button>
+      <br>
+      <br>
+      <ion-spinner *ngIf="isLoading==true" style="margin-left: 100px;" name="crescent"></ion-spinner>
+  </form>
+
+  
+  <!----------------Log in form end----------->
+
+
+  <!----------------Labels-------------------->
+  <div class="form-2">
+  <div class="label1" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Name
+  </div>
+  <br>
+
+  <div class="label2" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Username
+  </div>
+      <br>
+
+  <div class="label3" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Password
+  </div>
+  <br>
+  <div class="label4" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Repeat password
+  </div>
+  </div>
+  <!----------------End labels----------->
+
+
+</div>
+
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<div *ngIf="this.is_mobile_device==true">
+
+
+  <!-----------------Header-------------------->
+  <br>
+  <div class="logo-mobile">
+      <img src="http://127.0.0.1:8080/download.png" style="height: 200px; width: 150; padding-left: 50px;">
+  </div>
+  <!----------------End header----------------->
+  
+
+
+  <!----------------Log in form -------------->
+  <form class="form-1-mobile" style="background-color: #D3D3D3;" >
+      <br>
+      <h2 style="text-align: center;" *ngIf="this.message==''">Assign new admin</h2>
+      <p style="text-align: center; color: #a33535;" *ngIf="this.message!=''">{{message}}</p>
+      <br>
+      <input class="input-mobile" type="text" placeholder="Enter the name" name="name" [(ngModel)]='newAdmin.name_and_surname' (ngModelChange)="clearMessage()">
+      <br>
+      <input class="input-mobile" type="text" placeholder="Enter the username" name="username" [(ngModel)]='newAdmin.username' (ngModelChange)="clearMessage()">
+      <br>
+      <input class="input-mobile" type="password" placeholder="Enter the password" name="password" [(ngModel)]='newAdmin.password' (ngModelChange)="clearMessage()">
+      <br>
+      <input class="input-mobile" type="password" placeholder="Repeat the password" name="repeat_password" [(ngModel)]='repeat_password' (ngModelChange)="clearMessage()">
+      <br>
+      <br>
+      <button class="button-mobile" (click)="save()" *ngIf="isLoading==false">Save</button>
+      <br>
+      <br>
+      <ion-spinner *ngIf="isLoading==true" style="margin-left: 100px;" name="crescent"></ion-spinner>
+  </form>
+
+  
+  <!----------------Log in form end----------->
+
+
+  <!----------------Labels-------------------->
+  <div class="form-2-mobile">
+  <div class="label1-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Name
+  </div>
+  <br>
+
+  <div class="label2-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Username
+  </div>
+      <br>
+
+  <div class="label3-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Password
+  </div>
+  <br>
+  <div class="label4-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Repeat password
+  </div>
+  </div>
+  <!----------------End labels----------->
+
+
+</div>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+
+  
+</body>
+
+

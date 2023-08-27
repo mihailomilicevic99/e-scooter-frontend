@@ -1,0 +1,202 @@
+<head>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Link to Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+      body {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+        height: 100vh;
+      }
+    </style>
+</head>
+<body>
+
+
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+<!-------------------------------------------------------------DESKTOP VERSION------------------------------------------------>
+
+<div *ngIf="this.is_mobile_device==false">
+
+
+  <!-----------------Header-------------------->
+  <br>
+  <div class="logo">
+      <img [src]="'https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/images/1'" style="height: 200px; width: 150; padding-left: 50px;">
+  </div>
+  <!----------------End header----------------->
+
+
+  
+  <!----------------Register form -------------->
+  <div *ngIf="registration_successful==false">
+  <form class="form-1" style="background-color: #D3D3D3;">
+      <h2 style="text-align: center;" *ngIf="this.message==''">Register</h2>
+      <p style="text-align: center; color: #a33535;" *ngIf="this.message!=''">{{message}}</p>
+      <br>
+      <input type="text" placeholder="Enter your name"  name="name" [(ngModel)]="name" (ngModelChange)="clearMessage()">
+      <br>
+      <input type="text" placeholder="Enter your email" name="username" [(ngModel)]='username' (ngModelChange)="clearMessage()">
+      <br>
+      <input type="password" placeholder="Enter your password" name="password" [(ngModel)]='password' (ngModelChange)="clearMessage()">
+      <br>
+      <input type="password" placeholder="Repeat your password" name="password_repeat" [(ngModel)]='password_repeat' (ngModelChange)="clearMessage()">
+      <br>
+      <br>
+      <button (click)="register()">Create account</button>
+      <br>
+      <br>
+      <hr>
+      <h5 style="text-align: center;"><a routerLink="../Login">Already have account?</a></h5>
+  </form>
+  </div>
+  <!----------------Register form end----------->
+
+
+  <!----------------Labels-------------------->
+  <div class="form-2" *ngIf="registration_successful==false">
+  <div class="label1" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Name and surname
+  </div>
+  
+  <br>
+
+  <div class="label3" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Email
+  </div>
+  <br>
+  <div class="label4" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Password
+  </div>
+  <br>
+  <div class="label5" style="text-align: center; display: table-cell; vertical-align: middle;">
+      Repeat password
+  </div>
+
+  </div>
+  <!------------------------End labels---------------------->
+
+
+
+  <!----------------------------------Form after registration--------------------------------->
+  <div *ngIf="registration_successful==true">
+      <form style="background-color: #D3D3D3;" class="after_registration">
+          <h2 style="text-align: center;">Thank you for joining us!</h2>
+          <br>
+          <h2 style="text-align: center;">Your account is created. Please check your email inbox.</h2>
+          <br>
+          <button (click)="jump_to_login()">Jump to Login</button>
+      </form>
+  </div>
+  <!----------------------------------End form after registration--------------------------------->
+
+</div>
+
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+<!----------------------------------------------------------END DESKTOP VERSION------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<!---------------------------------------------------------- MOBILE VERSION------------------------------------------------>
+<div *ngIf="this.is_mobile_device==true">
+
+<!-----------------Header-------------------->
+<br>
+<div class="logo-mobile">
+    <img [src]="'https://e-scooter-backend-9c20d666a97d.herokuapp.com/api/images/1'" style="height: 200px; width: 150; padding-left: 50px;">
+</div>
+<!----------------End header----------------->
+
+
+
+<!----------------Register form -------------->
+<div *ngIf="registration_successful==false">
+<form class="form-1-mobile" style="background-color: #D3D3D3;">
+    <h2 style="text-align: center;" *ngIf="this.message==''">Register</h2>
+    <p style="text-align: center; color: #a33535;" *ngIf="this.message!=''">{{message}}</p>
+    <br>
+    <input class="input-mobile" type="text" placeholder="Enter your name"  name="name" [(ngModel)]="name" (ngModelChange)="clearMessage()">
+    <br>
+    <input class="input-mobile" type="text" placeholder="Enter your email" name="username" [(ngModel)]='username' (ngModelChange)="clearMessage()">
+    <br>
+    <input class="input-mobile" type="password" placeholder="Enter your password" name="password" [(ngModel)]='password' (ngModelChange)="clearMessage()">
+    <br>
+    <input class="input-mobile" type="password" placeholder="Repeat your password" name="password_repeat" [(ngModel)]='password_repeat' (ngModelChange)="clearMessage()">
+    <br>
+    <br>
+    <button class="button-mobile" (click)="register()">Create account</button>
+    <br>
+    <hr>
+    <h5 style="text-align: center;"><a routerLink="../Login">Already have account?</a></h5>
+</form>
+</div>
+<!----------------Register form end----------->
+
+
+<!----------------Labels-------------------->
+<div class="form-2-mobile" *ngIf="registration_successful==false">
+<div class="label1-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+    Name and surname
+</div>
+
+<br>
+
+<div class="label3-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+    Email
+</div>
+<br>
+<div class="label4-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+    Password
+</div>
+<br>
+<div class="label5-mobile" style="text-align: center; display: table-cell; vertical-align: middle;">
+    Repeat password
+</div>
+
+</div>
+<!------------------------End labels---------------------->
+
+
+
+<!----------------------------------Form after registration--------------------------------->
+<div *ngIf="registration_successful==true">
+    <form style="background-color: #D3D3D3;" class="after_registration-mobile">
+        <h2 style="text-align: center;">Thank you for joining us!</h2>
+        <br>
+        <h2 style="text-align: center;">Your account is created. Please check your email inbox.</h2>
+        <br>
+        <button class="button-mobile" (click)="jump_to_login()">Jump to Login</button>
+    </form>
+</div>
+<!----------------------------------End form after registration--------------------------------->
+
+
+</div>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+<!----------------------------------------------------------END MOBILE VERSION------------------------------------------------>
+
+
+  
+</body>
+
+
+
