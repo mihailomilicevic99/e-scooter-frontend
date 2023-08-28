@@ -1032,7 +1032,41 @@ updateScootersLocation(){
   }
 
 
+  lock_scooter(){
+    let token = this.generateRandomToken(11);
+    let id = this.loged_in_user.driving_scooter;
+    this.service.insertToken(id, token).subscribe(async res=>{
+      this.waiting_for_nfc_target = true; //show loading sign
+      
+      //wait until scooter got token from DB
+      let timer_start = new Date();
+      let activated:boolean = false;
+      while((new Date().getTime() - timer_start.getTime() < 1000*30) && activated==false){ //checking for token 2 minutes
+          this.service.getToken(id).subscribe(res=>{
+            if(res.token == ""){
+              activated = true;
+            }
+          });
+          await new Promise(resolve => setTimeout(resolve, 3000));
+      }
+
+      if(activated==false){
+        console.log("time out")
+        return;
+      }
+
+      console.log("Scooter locked");
+      this.after_end_ride();
+    })
+  }
+
+
   end_ride(){
+    this.lock_scooter();
+  }
+
+
+  after_end_ride(){
     let end_time = new Date();
     this.loged_in_user.isDriving = false;
     this.map.setOptions({styles: this.defaultMapOptions});
